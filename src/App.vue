@@ -1,14 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <el-button @click="visible = true">Button</el-button>
+    <el-dialog :visible.sync="visible" title="Hello world">
+      <p>Try Element</p>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Element from 'element-ui'
+
+Vue.use(Element)
 export default {
   name: 'App'
 }
+let vm = new Vue({
+  data: function () {
+    return { visible: true }
+  },
+  el: '#app'
+})
+Vue.use({
+  vm
+})
+
 </script>
 
 <style>
