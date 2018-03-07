@@ -1,29 +1,62 @@
 <template>
   <div id="app">
-    <el-button @click="visible = true">Button</el-button>
-    <el-dialog :visible.sync="visible" title="Hello world">
-      <p>Try Element</p>
-    </el-dialog>
+    <img src="./assets/logo.png">
+    <router-view/>
+    <!--使用-->
+    <temp></temp>
+    <elementTemp></elementTemp>
+    <p>
+      <!--roter-link 被渲染成a标签-->
+      <router-link to="/helloworld">go to hellowworld</router-link>
+      <router-link to="/routertest">go to routertest</router-link>
+    </p>
+    <router-view>
+      <!--路由出口 路由匹配的组件在这儿渲染-->
+    </router-view>
   </div>
+
 </template>
 
 <script>
-import Vue from 'vue'
-import Element from 'element-ui'
-
-Vue.use(Element)
+  import Vue from 'vue'
+  import VueRouter from 'vue-router'
+  //--使用组件---------------------------
+  import Temp from './components/temp' //1.引入
+  import ElementTemp from './components/ElementTemp'
 export default {
-  name: 'App'
-}
-let vm = new Vue({
-  data: function () {
-    return { visible: true }
+  components: {Temp, ElementTemp}, //2.注册
+  name: 'App',
+//  注入路由 使用 this.$router访问
+  computed: {
+    username() {
+      return this.$route.params.username
+    }
   },
-  el: '#app'
-})
-Vue.use({
-  vm
-})
+  methods: {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/")
+    }
+  }
+}
+  //---路由------------------------------
+  //  1.定义路由 两种途径
+  import HelloWorld from './components/HelloWorld'
+
+  const RouterTest = {template: "<div>routertest</div>"}
+
+  //  2.定义路由
+  const routes = [
+    {path: "/helloworld", component: HelloWorld},
+    {path: "/routertest", component: RouterTest}
+  ]
+  //  3.创建router实例 传输rotes配置
+  const router = new VueRouter({
+    routes  //缩写 相当于 routes:routes
+  })
+  //  4.创建和挂账根实例
+  const app = new Vue({
+    router
+  }).$mount('#app')
 
 </script>
 
