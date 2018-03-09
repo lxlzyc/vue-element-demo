@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+
+
     <!--使用-->
     <temp></temp>
     <elementTemp></elementTemp>
@@ -9,6 +9,9 @@
       <!--roter-link 被渲染成a标签-->
       <router-link to="/helloworld">go to hellowworld</router-link>
       <router-link to="/routertest">go to routertest</router-link>
+      <router-link to="/vbindtemp">go to vbind</router-link>
+      <br>
+      <router-link to="/viftemp">go to vif</router-link>
     </p>
     <router-view>
       <!--路由出口 路由匹配的组件在这儿渲染-->
@@ -41,13 +44,16 @@ export default {
   //---路由------------------------------
   //  1.定义路由 两种途径
   import HelloWorld from './components/HelloWorld'
-
+  import VbindTemp from './components/code/VbindTemp'
+  import VifTemp from './components/code/VifTemp'
   const RouterTest = {template: "<div>routertest</div>"}
 
   //  2.定义路由
   const routes = [
     {path: "/helloworld", component: HelloWorld},
-    {path: "/routertest", component: RouterTest}
+    {path: "/routertest", component: RouterTest},
+    {path: "/vbindtemp", component: VbindTemp},
+    {path: "/viftemp", component: VifTemp},
   ]
   //  3.创建router实例 传输rotes配置
   const router = new VueRouter({
@@ -57,6 +63,7 @@ export default {
   const app = new Vue({
     router
   }).$mount('#app')
+
 
 </script>
 
